@@ -18,6 +18,10 @@ namespace WeatherServing
         [Function("GetWeather")]
         public async Task<IActionResult> RunAsync([HttpTrigger(AuthorizationLevel.Function, "get")] HttpRequest req)
         {
+            req.HttpContext.Response.Headers.Append("Access-Control-Allow-Origin", "*"); // Update with actual origin in production
+            req.HttpContext.Response.Headers.Append("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+            req.HttpContext.Response.Headers.Append("Access-Control-Allow-Headers", "Content-Type");
+
             String? lat = req.Query["lat"];
             String? lon = req.Query["lon"];
 
